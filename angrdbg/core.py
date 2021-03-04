@@ -7,11 +7,15 @@ from .context import load_project, get_memory_type, set_memory_type, get_debugge
 from .brk import get_linux_brk
 from .got_builder import *
 from .idata_builder import *
+import angr as ag
 
 import sys
 if sys.version_info >= (3, 0):
     long = int
-    from .memory_8 import SimSymbolicDbgMemory
+    if ag.__version__ >= (9, 0):
+        from .memory_9 import SimSymbolicDbgMemory
+    else:
+        from .memory_8 import SimSymbolicDbgMemory
 else:
     bytes = str
     from .memory_7 import SimSymbolicDbgMemory
